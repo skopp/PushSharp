@@ -17,13 +17,7 @@ namespace PushSharp
 		static PushService instance = null;
 		public static PushService Instance
 		{
-			get
-			{
-				if (instance == null)
-					instance = new PushService();
-
-				return instance;
-			}
+			get { return instance ?? new PushService(); }
 		}
 
 		public PushService()
