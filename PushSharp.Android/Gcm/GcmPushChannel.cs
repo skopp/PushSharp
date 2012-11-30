@@ -26,6 +26,11 @@ namespace PushSharp.Android
 			transport.UnhandledException += new Action<GcmNotification, Exception>(transport_UnhandledException);
 		}
 
+        public override PlatformType PlatformType
+        {
+            get { return PlatformType.AndroidGcm; }
+        }
+
 		void transport_UnhandledException(GcmNotification notification, Exception exception)
 		{
 			//Raise individual failures for each registration id for the notification
@@ -35,7 +40,7 @@ namespace PushSharp.Android
 					exception);
 			}
 
-			this.Events.RaiseChannelException(exception, notification);
+			this.Events.RaiseChannelException(exception, PlatformType.AndroidGcm, notification);
 
 			Interlocked.Decrement(ref waitCounter);
 		}

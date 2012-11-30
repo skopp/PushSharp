@@ -11,6 +11,11 @@ namespace PushSharp.Android
 	[Obsolete("Google has Deprecated C2DM, and you should now use GCM Instead.")]
 	public class C2dmNotification : Notification
 	{
+		public static C2dmNotification Create()
+		{
+			return new C2dmNotification();
+		}
+
 		public C2dmNotification()
 		{
 			this.Platform = PlatformType.AndroidC2dm;

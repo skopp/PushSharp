@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PushSharp.Common;
 
 namespace PushSharp.Blackberry
 {
-	public class BlackberryPushService : Common.PushServiceBase<BlackberryPushChannelSettings>
+	public class BlackberryPushService : PushServiceBase
 	{
-		public BlackberryPushService(BlackberryPushChannelSettings channelSettings, Common.PushServiceSettings serviceSettings)
-			: base(channelSettings, serviceSettings)
-		{
-		}
-
-		protected override Common.PushChannelBase CreateChannel(Common.PushChannelSettings channelSettings)
+		protected override PushChannelBase CreateChannel(PushChannelSettings channelSettings)
 		{
 			return new BlackberryPushChannel(channelSettings as BlackberryPushChannelSettings);
 		}
 
-		public override Common.PlatformType Platform
+		public override PlatformType Platform
 		{
-			get { return Common.PlatformType.Blackberry; }
+			get { return PlatformType.Blackberry; }
 		}
 	}
 }

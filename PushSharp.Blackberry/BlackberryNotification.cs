@@ -10,6 +10,11 @@ namespace PushSharp.Blackberry
 {
 	public class BlackberryNotification : Notification
 	{
+		public static BlackberryNotification Create()
+		{
+			return new BlackberryNotification();
+		}
+
 		public BlackberryNotification()
 			: base()
 		{

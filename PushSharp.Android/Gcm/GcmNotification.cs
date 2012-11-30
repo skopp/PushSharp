@@ -11,6 +11,11 @@ namespace PushSharp.Android
 {
 	public class GcmNotification : Notification
 	{
+		public static GcmNotification Create()
+		{
+			return new GcmNotification();
+		}
+
 		public static GcmNotification ForSingleResult(GcmMessageTransportResponse response, int resultIndex)
 		{
 			var result = new GcmNotification();
@@ -93,7 +98,7 @@ namespace PushSharp.Android
 		internal string GetJson()
 		{
 			var json = new JObject();
-			
+
 			if (!string.IsNullOrEmpty(this.CollapseKey))
 				json["collapse_key"] = this.CollapseKey;
 			

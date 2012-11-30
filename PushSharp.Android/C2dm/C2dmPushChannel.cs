@@ -28,7 +28,7 @@ namespace PushSharp.Android
 			}
 			catch (GoogleLoginAuthorizationException glaex)
 			{
-				this.Events.RaiseChannelException(glaex);
+				this.Events.RaiseChannelException(glaex, PlatformType.AndroidC2dm);
 			}
 
 			transport = new C2dmMessageTransportAsync();
@@ -42,9 +42,14 @@ namespace PushSharp.Android
 			transport.UnhandledException += new Action<C2dmNotification, Exception>(transport_UnhandledException);
 		}
 
+        public override PlatformType PlatformType
+        {
+            get { return PlatformType.AndroidC2dm; }
+        }
+
 		void transport_UnhandledException(C2dmNotification notification, Exception exception)
 		{
-			this.Events.RaiseChannelException(exception);
+			this.Events.RaiseChannelException(exception, PlatformType.AndroidC2dm);
 
 			Interlocked.Decrement(ref waitCounter);
 		}
@@ -64,12 +69,12 @@ namespace PushSharp.Android
 			else if (response.ResponseStatus == MessageTransportResponseStatus.InvalidRegistration)
 			{
 				//Device subscription is no good!
-				this.Events.RaiseDeviceSubscriptionExpired(PlatformType.AndroidC2dm, response.Message.RegistrationId);
+				this.Events.RaiseDeviceSubscriptionExpired(PlatformType.AndroidC2dm, response.Message.RegistrationId, response.Message);
 			}
 			else if (response.ResponseStatus == MessageTransportResponseStatus.NotRegistered)
 			{
 				//Device must have uninstalled app
-				this.Events.RaiseDeviceSubscriptionExpired(PlatformType.AndroidC2dm, response.Message.RegistrationId);
+				this.Events.RaiseDeviceSubscriptionExpired(PlatformType.AndroidC2dm, response.Message.RegistrationId, response.Message);
 			}
 			else
 			{

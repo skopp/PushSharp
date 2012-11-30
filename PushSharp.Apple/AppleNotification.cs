@@ -11,6 +11,11 @@ namespace PushSharp.Apple
 {
 	public class AppleNotification : Common.Notification
 	{
+		public static AppleNotification Create()
+		{
+			return new AppleNotification();
+		}
+
 		static object nextIdentifierLock = new object();
 		static int nextIdentifier = 1;
 

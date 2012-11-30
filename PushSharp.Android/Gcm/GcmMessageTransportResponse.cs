@@ -27,28 +27,32 @@ namespace PushSharp.Android
 		public GcmMessageTransportResponseCode ResponseCode { get; set; }
 	}
 
-	public enum GcmMessageTransportResponseCode
-	{
-		Ok,
-		Error,
-		BadRequest,
-		ServiceUnavailable,
-		InvalidAuthToken
-	}
+    public enum GcmMessageTransportResponseCode
+    {
+        Ok,
+        Error,
+        BadRequest,
+        ServiceUnavailable,
+        InvalidAuthToken,
+        InternalServiceError
+    }
 
-	public enum GcmMessageTransportResponseStatus
-	{
-		Ok,
-		Error,
-		QuotaExceeded,
-		DeviceQuotaExceeded,
-		InvalidRegistration,
-		NotRegistered,
-		MessageTooBig,
-		MissingCollapseKey,
-		MissingRegistrationId,
-		Unavailable,
-		MismatchSenderId,
-		CanonicalRegistrationId
-	}
+    public enum GcmMessageTransportResponseStatus
+    {
+        Ok,
+        Error,
+        QuotaExceeded,
+        DeviceQuotaExceeded,
+        InvalidRegistration,
+        NotRegistered,
+        MessageTooBig,
+        MissingCollapseKey,
+        MissingRegistrationId,
+        Unavailable,
+        MismatchSenderId,
+        CanonicalRegistrationId,
+        InvalidDataKey,
+        InvalidTtl,
+        InternalServerError
+    }
 }
