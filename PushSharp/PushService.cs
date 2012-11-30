@@ -29,20 +29,13 @@ namespace PushSharp
 		public PushService()
 		{
 			Events = new ChannelEvents();
-			pushServices = new List<PushServiceBase>();
 
-			
-			//container.AutoRegister(false);
-			var container = TinyIoC.TinyIoCContainer.Current;
-
-			//container.RegisterMultiple<PushServiceBase>(new[] {typeof(PushServiceBase)});
-			//container.RegisterMultiple(typeof(PushServiceBase), new [] {typeof (PushServiceBase)});
-
-			var svcs = container.ResolveAll<PushServiceBase>();
-
-			pushServices = svcs.ToList();
-
-
+			pushServices = (from a in AppDomain.CurrentDomain.GetAssemblies()
+			                where a.FullName.Contains("PushSharp")
+			                from t in a.GetTypes()
+			                where !t.IsAbstract
+			                      && t.BaseType == typeof (PushServiceBase)
+			                select (PushServiceBase) Activator.CreateInstance(t)).ToList();
 		}
 
 		public void StartService(PlatformType platformType, PushChannelSettings channelSettings, PushServiceSettings serviceSettings = null)
